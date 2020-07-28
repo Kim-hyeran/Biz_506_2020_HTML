@@ -7,7 +7,19 @@
  * MarkDown : git의 README.md와 같은 문서를 만들 때, tag가 아닌 특수문자(#,＊)를 문서 첫번째 위치에 놓아서 문서를 꾸미고 모양을 만드는 문서작성용 언어
  * MarkUp : 시작 tag <tag>와 종료 tag </tag>를 이용하여 문서를 감싸 문서를 꾸미고 모양을 만드는 문서작성용 언어
 		- XML : tag에 사용되는 키워드를 임의로 생성할 수 있다.  
-		- HTML : tag에 사용되는 키워드가 정해져 있다.
+		- HTML : tag에 사용되는 키워드가 정해져 있다.  
+
+#### HTML의 Box Model
+ * HTML의 tag를 Box Model로 분류하면 Block, Inline으로 분류할 수 있다.
+ * Block : Content의 길이에 관계 없이 화면의 왼쪽 끝에서 오른쪽 끝까지를 영역으로 사용하는 tag
+ * Inline : Content의 길이만큼만 영역으로 사용한 tag  
+			여러가지 tag로 묶인 Content가 가로 방향으로 나열되어 표현할 수 있다.  
+			문자열 중간에 있는 단어들의 모양 색깔 등을 바꾸는 것과 같이 다양한 용도로 사용된다.  
+
+#### HTML의 Selector
+ * tag : HTML에서 사용하는 모든 tag를 Selector Tag라고 한다.
+ * 선택자(Selector) : HTML 문서 내에서 tag라고 불리우는 요소들이 style과 관련된 부분이 적용되면 tag selector라고 부른다.
+					CSS(Cascading Style Sheet)를 사용하여 HTML 문서에 디자인적인 효과를 입히는 기술
 
 #### index.html
  * 일반적으로 홈페이지, 웹페이지라고 부르는 Browser를 통해서 접근하는 프로젝트 중 가장 먼저 만나게 되는 파일

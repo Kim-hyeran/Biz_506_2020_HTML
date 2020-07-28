@@ -1,0 +1,68 @@
+<!-- 주석 -->
+<!-- 이 문서는 html5 규격의 Hyper Text 문서임을 선언 -->
+<!DOCTYPE html>
+<html lang="ko">
+    <!-- head tag에 작성되는 내용은 사용자에게 보여지지 않고, 문서의 특성 등을 지정하는 여러 가지 설정값 포함 -->
+    <head>
+        <!-- web browser에 보여질 제목 -->
+        <title>나의 홈페이지</title>
+        <!-- 문자 encoding 설정 -->
+        <meta charset="UTF-8">
+        <!-- 화면에 보여지는 scale 조정(width=device-width : 기본값) -->
+        <meta name="viewport" content='width=device-width, initial-scale=1'>
+    </head>
+    <body>
+        <!-- h : headline, markdown의 #과 비슷한 기능으로, 1~6의 숫자를 입력할 수 있다. 숫자가 커질수록 글자의 크기는 작아진다. -->
+        <h1>나의 홈페이지</h1>
+        <h2>나의 홈페이지</h2>
+        <h3>나의 홈페이지</h3>
+        <h4>나의 홈페이지</h4>
+        <h5>나의 홈페이지</h5>
+        <h6>나의 홈페이지</h6>
+        <!-- h7 : 규격 외 tag가 입력되면 오류를 출력하지 않고 무시한다. -->
+        <h7>나의 홈페이지</h7>
+        <!-- p : paragraph, 하나의 문단을 만들 때 사용한다. -->
+        <!-- br : break, p tag 내에서 문장 줄바꿈을 할 때 사용한다. <br/>(가장 좋은 방식), </br>, <br> -->
+        <p>우리는 오늘 html5를 사용하여 웹 페이지를 만들고 있다.<br />
+        우리가 만드는 웹 페이지가 다양한 웹 브라우저에서 정상으로 보여지기를 기대한다.</p>
+        <p>우리나라 만세</p>
+        <p>대한민국 만세</p>
+        <!-- 화면에 <a> tag 안의 내용을 보여주고, href tag에 입력한 주소로 이동하는(Request) tag -->
+        <!-- a : anchor, 링크라고 하며 문자열을 마우스로 클릭했을 때 서버에 요청(Request)하는 속성값 부여 -->
+        <!-- target="_new" : Hyper Link 새창 열기(new : 새창열기의 명명) -->
+        <p><a href="http://naver.com" target="_new">네이버 바로가기</a></p>
+        <p><a href="sub/index6.html">sub의 index6 열기</a></p>
+        <p><img src="다운로드.png" alt="2020 이미지" width="100px" height="50px"></p>
+        <p><img src="https://cdn.eyesmag.com/content/uploads/posts/2019/12/31/change-2020-top50main-b74c4b38-1b44-4a93-8da3-5b2158138763.gif"></p>
+        <p>
+            <!-- href : Hyper Text Reference -->
+            <a href="https://daum.net">
+            <img src="다운로드.png" alt="2020 이미지" width="100px">
+            </a>
+        </p>
+        <p>
+            <ul>
+                <!-- li*5 : li tag를 여러 개 생성할 때 사용 -->
+                <!-- alt+shift+방향키(tag 내부에서) : 태그 복제 -->
+                <!-- ctrl+alt+shift+방향키(tag 내부에서) : 블럭 다중 선택, 여러 tag에 내용 한번에 입력하기 -->
+                <li>ul : UnOrder List, 순서가 없는 리스트</li>
+                <li>머릿글이 기호로 표시되는 리스트</li>
+                <li>머릿글 기호는 필요에 따라 바꿀 수 있다.</li>
+            </ul>
+        </p>
+        <p>
+            <ol>
+                <li>ol : Order List, 순서가 있는 리스트</li>
+                <li>머릿글에 순번이 매겨진 리스트</li>
+                <li>기본값은 숫자 리스트이며, '가나다' 혹은 'ABC' 등으로 변경할 수 있다.</li>
+            </ol>
+        </p>
+        <p>
+            <ul>
+                <li><img src="다운로드.png" alt="2020" height="50px"></li>
+                <li><img src="다운로드.png" alt="2020 이미지" height="50px"></li>
+                <li><img src="다운로드.png" alt="2020 이미지다" height="50px"></li>
+            </ul>
+        </p>
+    </body>
+</html>

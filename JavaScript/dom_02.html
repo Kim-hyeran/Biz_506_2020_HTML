@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        div {
+            border: 1px solid blue;
+            margin: 10px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div>div1</div>
+    <div>div2</div>
+    <div>div3</div>
+    <div>div4</div>
+    <div>div5</div>
+    <div>div6</div>
+    <div>div7</div>
+    <div>div8</div>
+
+    <script>
+        //getElementsByTagName() method : tag의 list를 추출하여 배열로 만들어준다.
+        var div_list=document.getElementsByTagName("div");
+        div_list[0].innerHTML="나는 1번 div";
+        div_list[1].innerHTML="Korea";
+        div_list[2].innerHTML="대한민국";
+
+        for(var i=0; i<div_list.length; i++) {
+            div_list[i].innerHTML=(i+1)*100;
+        }
+
+        for(var i=0; i<div_list.length; i++) {
+            var rnd=Math.random();  //0부터 1 미만의 난수 생성
+            //Math.floor() : 소수점 이하 값 생략
+            rnd=Math.floor(rnd*100);    //0부터 99까지의 난수로 변환
+            div_list[i].innerHTML=rnd;
+        }
+
+        for(var i=0; i<div_list.length; i++) {
+            var red=Math.floor(Math.random()*256);  //0부터 255까지의 난수
+            var green=Math.floor(Math.random()*256);
+            var blue=Math.floor(Math.random()*256);
+
+            //백틱(`) : ES2015 버전 이상에서만 사용 가능한 연산자
+            var s="rgb ("+red+","+green+","+blue+")";
+            var color_string=`rgb(${red}, ${green}, ${blue})`;
+            div_list[i].style.backgroundColor=color_string;
+            div_list[i].innerHTML=color_string;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <div id="div1">여기는 div1 영역입니다</div>
+    <script>
+        //DO(Document Object tag) : id가 div인 div tag를 지칭
+        //.innerHTML=""; : 방금 getElementById에서 선택된 tag의 내용(문자열)을 새로 입력한 내용으로 변경
+        document.getElementById("div1").innerHTML="나는 js 코드";
+
+        //id가 div2인 div tag를 찾아서 innerHTML 속성에 "반갑습니다" 문자열을 할당 명령으로, div2의 내용을 변경하라는 명령과 같다
+        //그러나 현재 상태에서는 div2 tag가 document에서 읽기 전(div2 객체가 만들어지기 전)이기 때문에 of null(NullPointerException)이 발생
+        document.getElementById("div2").innerHTML="반갑습니다";
+        //기본적인 JavaScript 코드는 보통 DOM이 모두 작성된 다음 위치
+    </script>
+    <div id="div2">여기는 div2 영역입니다</div>
+</body>
+</html>

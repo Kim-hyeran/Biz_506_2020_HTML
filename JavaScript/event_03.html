@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        input {
+            display: block;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <form action="writer">
+        <input type="text" placeholder="이름을 입력하세요">
+        <input type="text" placeholder="ID를 입력하세요(5글자 이상)">
+        <input type="password" placeholder="비밀번호를 입력하세요(5글자 이상)">
+        <input type="date">
+        <input type="datetime-local">
+        <input type="number">
+        <input type="email">
+        <input type="phone">
+        <button type="button" onclick="save()">저장</button>
+    </form>
+
+    <script>
+        //view 단에서 유효성 검사하기
+        function save() {
+            var name=document.getElementsByTagName("input")[0].value;
+            var userid=document.getElementsByTagName("input")[1].value;
+            var password=document.getElementsByTagName("input")[2].value;
+
+            //0번 input box에 값이 입력되지 않았을 경우
+            if(name=="") {
+                //알림창을 출력한 다음
+                alert("이름이 입력되지 않았습니다!")
+                //입력 cursor를 box로 옮기고
+                var name=document.getElementsByTagName("input")[0].focus()
+                //더 이상 코드를 진행시키지 않는다
+                return false
+            }
+
+            if(userid.length<5) {
+                alert("사용자 ID는 5자 이상 입력하세요")
+                var userid=document.getElementsByTagName("input")[1].focus();
+                return false
+            }
+
+            if(password.length<5) {
+                alert("비밀번호는 5자 이상 입력하세요")
+                var password=document.getElementsByTagName("input")[2].focus();
+                return false
+            }
+
+            alert("저장이 완료되었습니다")
+            document.getElementsByTagName("form")[0].submit()
+        }
+    </script>
+</body>
+</html>

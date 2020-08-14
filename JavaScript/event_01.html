@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <input id="input1"><br/>
+    <button onclick="myclick()">click</button>
+    <script>
+        //function(함수) 밖에 있는 script는 Browser가 시작(새로고침)되는 순간에 실행
+        alert("start")
+
+        //function(함수)로 감싸진 코드는 함수(myclick())를 호출하는 시점에서 코드 실행
+        //function : js에서 method를 생성하는 키워드
+        function myclick() {
+            //id가 input1인 input box에 입력한 값(value)을 가져와 data에 저장
+            var data=document.getElementById("input1").value
+
+            alert("nice to meet you:)")
+            alert("입력한 값은 "+data+"입니다.")
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        section {
+            display: flex;
+            /*
+            flex-flow
+             - flex-children을 배치하는 방향 설정
+             - 기본값은 row로, 가로방향 배치
+             - column으로 설정하면 세로방향 배치
+            */
+            flex-flow: row; /* (default) */
+            flex-flow: column;
+            /*
+            flex-children이 parents에 가득 찼을 때 자동으로 줄바꿈 하기(wrap), 하지 않기(no-wrap : 기본값)
+                no-wrap으로 설정하면 children을 무조건 parents에 가득 채우고 width, height를 조정
+            */
+            flex-wrap: wrap;
+            border: 1px solid blue;
+        }
+
+        div {
+            border: 1px solid green;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div>div box</div>
+        <div>div box</div>
+        <div>div box</div>
+        <div>div box</div>
+        <div>div box</div>
+    </section>
+</body>
+</html>

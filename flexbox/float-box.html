@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        section {
+            border: 1px solid blue;
+        }
+
+        div {
+            border: 1px solid green;
+            /*
+             display: block;인 div box를 inline으로 형질(성질) 변경, block의 성적을 잃어버리고 content 크기만큼만 width가 설정된다
+                = display: inline;
+            */
+
+            /*
+             div box 등 block box의 성질(width 설정)을 유지하면서 inline 성질을 가진 특별한 존재로 변경
+            */
+            display: inline-block;
+        }
+
+        #div1 {
+            width: 30%;
+            margin: 0 auto;
+        }
+
+        #div2 {
+            width: 40%;
+            margin: 0 auto;
+        }
+
+        /* div3, div4, div5에 공통 style 지정 */
+        #div3, #div4, #div5 {
+            width: 20%;
+            margin: 0 auto;
+        }
+
+        #div5, #div4, #div6 {
+            /*
+             float
+             div(section, article, header, footer)를 사용하여 layout을 만들 때 원하는 위치에 박스를 배열하거나 크기 조절 등에 어려움 존재
+                -> 과거에는 table을 사용하여 layout을 제작하였으나 성능 문제를 일으키게 됨
+                -> float라는 속성으\로 box를 수직방향에서 stacking하는 방식을 사용하였으나 역시나 문제 발생
+                    + box가 어떤 원칙 없이 나열되고  parents box를 벗어나 엉뚱한 곳에 위치
+                    + 높이 방향으로 위치를 지정하여 배치하기 어려움
+
+            */
+            float: left;
+        }
+
+        #div1, #div2, #div3 {
+            margin: 10px;
+        }
+
+        #div4, #div5, #div6 {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div id="div1">div1</div>
+        <div id="div2">div2</div>
+        <div id="div3">div3</div>
+        <div id="div4">div4</div>
+        <div id="div5">div5</div>
+        <div id="div6">div6</div>
+    </section>    
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        html, body {
+            height: 100%;
+        }
+        /*
+         parents box의 display를 flex로 지정하는 순간 parents box에 포함된 모든 flex는 flex-children이 된다.
+         기존에 가지고 있던 block의 성질을 유지하면서 다른 특별한 성질을 갖게 된다.
+        */
+        section {
+            display: flex;
+            /*
+             wrap
+             flex-children의 width 값을 감안하여 배치하고, children의 width 합이 parents width보다 커지면 box를 자동으로 줄바꿈(auto wrapping))
+             반응형 웹페이지 제작에 사용하는 기능
+             flex-wrap: wrap-reverse; : 역순
+            */
+            flex-wrap: wrap;
+            border: 1px solid green;
+            height: 50%;
+        }
+
+        div {
+            border: 1px solid blue;
+            /* flex-children의 width를 px(pixcel)로 지정해주면 화면 해상도에 따라 box(contents)의 배열을 자동으로 설정해주는 효과 */
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div>div1</div>
+        <div>div2</div>
+        <div>div3</div>
+        <div>div4</div>
+        <div>div5</div>
+    </section>
+</body>
+</html>

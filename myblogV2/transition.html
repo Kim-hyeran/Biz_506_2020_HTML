@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        .btn {
+            /*
+             button 기본 값 : inline tag, content 크기만큼만 생성되는 box
+             이 button을 div box의 성질로 변환
+             */
+            display: block;
+            width: 300px;
+            height: 40px;
+            border: 1px solid #666;
+            margin: 10px auto;
+            background-color: cadetblue;
+            color: #333;
+            transition: color 1s ease-in-out, width 0.5s ease-in, all 1s;
+        }
+
+        .btn:hover {
+            color: white;
+        }
+
+        .hover1:hover {
+            width: 340px;
+        }
+
+        .hover2:hover {
+            box-shadow: 300px 0 0 0 burlywood inset;
+        }
+
+        .hover3:hover {
+            box-shadow: -300px 0 0 0 burlywood inset;
+        }
+
+        .hover4:hover {
+            box-shadow: 0 80px 0 0 burlywood inset, 0 -80px 0 0 burlywood inset;
+        }
+        
+        .hover5:hover {
+            box-shadow: 200px 0 0 0 burlywood inset, -200px 0 0 0 burlywood inset;
+        }
+
+        .hover6:hover {
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn hover1">버튼1</button>
+    <button class="btn hover2">버튼2</button>
+    <button class="btn hover3">버튼3</button>
+    <button class="btn hover4">버튼4</button>
+    <button class="btn hover5">버튼5</button>
+    <button class="btn hover6">버튼6</button>
+</body>
+</html>

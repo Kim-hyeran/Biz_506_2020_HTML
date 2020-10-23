@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+        }
+
+        section#bbs-list, form#bbs-form {
+            flex: 1;
+            margin: 10px 5px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        form #bbs-form label, form#bbs-form input {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        form#bbs-form label {
+            width: 20%;
+            margin: 0 10px;
+            text-align: right;
+        }
+
+        form#bbs-form input {
+            width: 70%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        section#bbs-list table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #aaa;
+        }
+
+        section#bbs-list th, section#bbs-list td {
+            border: 1px solid #aaa;
+            padding: 5px;
+        }
+
+        div#button-box {
+            text-align: right;
+        }
+        
+        div#button-box button {
+            padding: 10px 16px;
+            margin: 5px;
+            border-radius: 5px;
+            outline: none;
+            border: none;
+        }
+
+        div#button-box button:hover {
+            box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+        }
+
+        button#btn-send {
+            background-color: skyblue;
+        }
+
+        button#btn-reset {
+            background-color: lightgreen;
+        }
+
+        div#image-drop {
+            background-color: #ddd;
+            border: 1px solid navy;
+            height: 200px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div#image-view {
+            background-color: white;
+            border: 1px solid #ddd;
+            height: 100px;
+        }
+    </style>
+    <script>
+        $(function() {
+            // function getList() {} : 전통적인 방식
+            const getList=function() {
+                axios({
+                    url : "http://localhost:8080/bbs/api/bbs",
+                    method : "GET"
+                })
+                .then(function(res) {
+                    if(res.status===200) {
+                        // alert("데이터가 정상적으로 수신되었습니다")
+                        // alert(JSON.stringify(res.data))
+                        let bbs_list=res.data
+                        // let ul=$("<ul/>")
+                        // for(i=0; i<bbs_list.length; i++) {
+                        //     let li=$("<li/>", {text:bbs_list[i].b_subject})
+                        //     ul.append(li)
+                        // }
+
+                        // API 서버로부터 가져온 bbs 데이터를 TR, TD이 조합된 list로 재생성
+                        let trs=bbs.list.map(item=> {
+                            let tr=$("<tr/>", {class: "bbs-tr", "data-seq": item.b_seq})
+
+                            tr.append($("<td/>", {text:item.b_date}))
+                            tr.append($("<td/>", {text:item.b_time}))
+                            tr.append($("<td/>", {text:item.b_writer}))
+                            tr.append($("<td/>", {text:item.b_subject}))
+
+                            return tr
+                        })
+
+                        $("section#bbs-list tbody").html(trs)
+                    }
+                })
+                .catch(function(err) {
+                    alert("오류 발생")
+                })
+            }
+            getList()
+            /*
+             동적으로 생성된 tag에 event 핸들링을 할 때는 $(selector).click(function() {}) 방식의 핸들링이 적용되지 않는다.
+             동적으로 생성된 tag에 event 핸들링을 할 때는 document차원 핸들링을 해주어야만 제대로 작동이 된다.
+             */
+            $(document).on("click", "tr.bbs-tr", function() {
+                // alert($(this).data("seq"))
+                // 게시글의 리스트를 클릭하면 api 서버에 데이터를 요청하여 게시글을 가져오고, 가져온 게시글을 form에 추가
+                let seq=$(this).data("seq")
+                axios({
+                    url : `http://localhost:8080/bbs/api/${seq}`,
+                    method: "GET"
+                })
+                // .then(function(res){})
+                .then((res)=> {
+                    if(res.status===200) {
+                        let data=res.data
+    
+                        $("#b_seq").val(data.b_seq)
+                        $("#b_date").val(data.b_date)
+                        $("#b_time").val(data.b_time)
+                        $("#b_writer").val(data.b_writer)
+                        $("#b_subject").val(data.b_subject)
+                        $("#b_content").val(data.b_content)
+                    }
+                })
+                .catch((err)=> {
+                    alert("통신오류")
+                })
+            })  // list click event end
+
+            $(document).on("click", "button#btn-send", ()=> {
+                let seq=$("#b_seq").val()
+                let send_method="POST"
+                if(seq>0) {
+                    send_method="PUT"
+                    // alert("업데이트")
+                // } else {
+                    // alert("추가")
+                }
+
+                // form에 담긴 데이터를 axios(ajax 방식)로 서버 전송
+                // 1. js의 FormData 클래스를 객체로 생성
+                let formData=new FormData()
+
+                // input form type="file"로 설정된 tag를 select
+                // 현재 form에는 id="file"인 tag가 1개 뿐이지만 type="file"로 설정된 tag는 기본값이 배열
+
+                // form에서 file을 upload하는 시스템은 기본적으로 multi file을 upload할 수 있도록 구성
+                // 이런 상황에서 파일을 1개만 선택해 ajax를 통해 업로드할 경우 파일 정보의 0번째 
+
+                // 생성한 formData 객체에 file 정보 추가
+                let file=$("#file")
+                formData.append("file", file[0].files[0])
+
+                // form에 입력된 input box의 모든 값을 문자열화하여 FormData 객체로 만들어서 formData 변수에 담기
+                // let formData=$("form#bbs-form").serialize()
+
+                // 파일을 axios로 전송할 경우 headers 속성을 추가하고, header 속성 중에서 Content-Type에 multipart/form-data를 추가
+                axios({
+                    url: "http://localhost:8080/bbs/api/bbs",
+                    method: "POST",
+                    data: formData,
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
+                .then((res) => {
+                    alert("데이터 전송 성공")
+                })
+                .catch((err) => {
+                    alert("통신오류")
+                })  // btn-send end
+                
+                // reset 버튼 hidden input data clear 버그 수정
+                $(document).on("click", "#btn-reset", ()=> {
+                    $("#b_seq").val(0)
+                })
+
+                const fileSend=(ev)=> {
+                    // jquery의 $.ajax()를 사용하여 파일 upload
+                    let formData=new FormData()
+                    let files=ev.originalEvent.dataTransfer.files
+                    formData.append("file", files[0])
+
+                    $.ajax({
+                        url: "http://localhost:8080/bbs/api/file",
+                        method: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: (result)=> {
+                            alert("파일 업로드 성공\n"+result)
+                            $("#image-drop h3").text("파일을 드래그해서 첨부할 수 있습니다")
+                            let img=$("<img/>", {src: "http://localhost:8080/bbs/upload"+result, height: "100px"})
+                            $("#image-view").append(img)
+                        },
+                        error: (err)=> {
+                            alert("서버 통신 오류")
+                        }
+                    })
+                }
+
+                $(document).on("click", "#btn-jq", ()=> {
+                    fileSend()
+                })
+
+                // 파일을 끌어서 상자 위로 이동했을 때
+                $(document).on("dragover", "#image-drop", (e)=> {
+                    $("#image-drop h3").text("파일을 내려놓으세요")
+
+                    // event 버블링이 일어나서 drop event가 작동되지 않는 현상을 방지하기 위한 코드
+                    // e.stopPropagation()
+                    // e.preventDefault()
+                    // 또는
+                    return false
+                })
+
+                // 상자를 벗어났을 때
+                $(document).on("dragleave", "#image-drop", (e)=> {
+                    $("#image-drop h3").text("파일을 드래그해서 첨부할 수 있습니다")
+                })
+
+                // 파일을 상자에 내려놓았을 때
+                $(document).on("drop", "#image-drop", (e)=> {
+                    e.preventDefault()
+                    $("#image-drop h3").text("파일을 첨부하는 중...")
+                    fileSend(e)
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+    <section id="bbs-list">
+        <table>
+            <thead>
+                <tr>
+                    <th>작성자</th>
+                    <th>작성일자</th>
+                    <th>작성시각</th>
+                    <th>제목</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+    <form id="bbs-form" enctype="multipart/form-data">
+        <div><label>작성일자</label></label><input name="b_date" id="b_date" type="text"></div>
+        <div><label>작성시각</label></label><input name="b_time" id="b_time" type="text"></div>
+        <div><label>작성자</label></label><input name="b_writer" id="b_writer" type="text"></div>
+        <div><label>제목</label></label><input name="b_subject" id="b_subject" type="text"></div>
+        <div><label>내용</label></label><input name="b_content" id="b_content" type="text"></div>
+        <div><label>이미지</label></label><input name="b_file" id="b_file" type="text"></div>
+        <div><label>이미지</label></label><input name="file" id="file" type="file"></div>
+        <div id="image-drop"><h3>파일을 드래그해서 첨부할 수 있습니다</h3></div>
+        <div id="image-view"></div>
+        <div id="button-box">
+            <input name="b_seq" id="b_seq" value="0" type="hidden" />
+            <button type="button" id="btn-send">axios전송</button>
+            <button type="button" id="btn-jq">jquery전송</button>
+            <button type="reset" id="btn-reset">새로작성</button>
+        </div>
+    </form>
+</body>
+</html>
